@@ -187,6 +187,11 @@ height: 500px;
 margin-bottom: 30px;
 position: relative;
 overflow: hidden;
+border-radius: 20px;
+background: rgba(255,255,255,0.1);
+backdrop-filter: blur(10px);
+border: 2px solid rgba(255,255,255,0.3);
+box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 .flashcard {
 position: relative;
@@ -296,13 +301,14 @@ transform: scale(1.1);
 }
 
 .bookmark-btn.bookmarked {
-background: rgba(255, 193, 7, 0.8);
+background: rgba(255, 193, 7, 0.8) !important;
 box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
-color: white;
+color: white !important;
+border-color: rgba(255, 193, 7, 0.8) !important;
 }
 
 .bookmark-btn.bookmarked:hover {
-background: rgba(255, 193, 7, 0.9);
+background: rgba(255, 193, 7, 0.9) !important;
 }
 
 .bookmark-container {
@@ -962,7 +968,7 @@ id="swipeRightIndicator">✓</div>
                 </div>
                 <div class="illustration" id="frontIllustration">✈</div>
                 <div class="bookmark-container">
-                    <button class="bookmark-btn" id="bookmarkBtnFront" onclick="toggleBookmark(event)" title="Mark for review">
+                    <button class="bookmark-btn" id="bookmarkBtnFront" onclick="toggleBookmarkSimple('Front')" title="Mark for review">
                         <span id="bookmarkIconFront">✅</span>
                     </button>
                 </div>
@@ -980,7 +986,7 @@ id="swipeRightIndicator">✓</div>
                 </div>
                 <div class="illustration" id="backIllustration">✈</div>
                 <div class="bookmark-container">
-                    <button class="bookmark-btn" id="bookmarkBtnBack" onclick="toggleBookmark(event)" title="Mark for review">
+                    <button class="bookmark-btn" id="bookmarkBtnBack" onclick="toggleBookmarkSimple('Back')" title="Mark for review">
                         <span id="bookmarkIconBack">✅</span>
                     </button>
                 </div>
@@ -1051,6 +1057,33 @@ Previous</button>
     
 <script type="text/javascript" src="cordova.js"></script>
 <script src="script.js"></script>
+
+<!-- FIXED BOOKMARK FUNCTIONALITY - NO BANNERS -->
+<script>
+function toggleBookmarkSimple(side) {
+    const btn = document.getElementById('bookmarkBtn' + side);
+    const icon = document.getElementById('bookmarkIcon' + side);
+    
+    // Toggle the bookmarked class
+    if (btn.classList.contains('bookmarked')) {
+        btn.classList.remove('bookmarked');
+        icon.textContent = '✅';
+    } else {
+        btn.classList.add('bookmarked');
+        icon.textContent = '⭐';
+    }
+    
+    // Prevent any event bubbling that might trigger banners
+    if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+    }
+    
+    // No banners - just the button color change!
+    return false;
+}
+</script>
+
 <script>
 // PWA Service Worker Registration
 if ('serviceWorker' in navigator) {
@@ -1067,3 +1100,4 @@ if ('serviceWorker' in navigator) {
 </script>
 </body>
 </html>
+
