@@ -968,7 +968,7 @@ id="swipeRightIndicator">✓</div>
                 </div>
                 <div class="illustration" id="frontIllustration">✈</div>
                 <div class="bookmark-container">
-                    <button class="bookmark-btn" id="bookmarkBtnFront" onclick="toggleBookmarkSimple('Front')" title="Mark for review">
+                    <button class="bookmark-btn" id="bookmarkBtnFront" onclick="toggleBookmark(event)" title="Mark for review">
                         <span id="bookmarkIconFront">✅</span>
                     </button>
                 </div>
@@ -985,11 +985,6 @@ id="swipeRightIndicator">✓</div>
                     <div class="romaji" style="opacity: 0; visibility: hidden; height: 30px;">spacer</div>
                 </div>
                 <div class="illustration" id="backIllustration">✈</div>
-                <div class="bookmark-container">
-                    <button class="bookmark-btn" id="bookmarkBtnBack" onclick="toggleBookmarkSimple('Back')" title="Mark for review">
-                        <span id="bookmarkIconBack">✅</span>
-                    </button>
-                </div>
                 <div class="audio-controls">
                     <button class="audio-btn"
                         onclick="playEnglishAudio(event)">🔊 English</button>
@@ -1057,32 +1052,6 @@ Previous</button>
     
 <script type="text/javascript" src="cordova.js"></script>
 <script src="script.js"></script>
-
-<!-- FIXED BOOKMARK FUNCTIONALITY - NO BANNERS -->
-<script>
-function toggleBookmarkSimple(side) {
-    const btn = document.getElementById('bookmarkBtn' + side);
-    const icon = document.getElementById('bookmarkIcon' + side);
-    
-    // Toggle the bookmarked class
-    if (btn.classList.contains('bookmarked')) {
-        btn.classList.remove('bookmarked');
-        icon.textContent = '✅';
-    } else {
-        btn.classList.add('bookmarked');
-        icon.textContent = '⭐';
-    }
-    
-    // Prevent any event bubbling that might trigger banners
-    if (event) {
-        event.stopPropagation();
-        event.preventDefault();
-    }
-    
-    // No banners - just the button color change!
-    return false;
-}
-</script>
 
 <script>
 // PWA Service Worker Registration
